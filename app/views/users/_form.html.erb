@@ -16,9 +16,10 @@
     <%= f.text_field :name %>
   </div>
 
+  <% car_selections = @user.car_selections.map {|record| [record.maker, record] }.to_h %>
   <% CarSelection.makers.each_with_index do |(maker, value), index| %>
     <label>
-      <% car_selection = @user.car_selections.find{|record| record.maker == maker } %>
+      <% car_selection = car_selections[maker] %>
       <% name_prefix = "user[car_selections_attributes][#{index}]" %>
       <%= hidden_field_tag "#{name_prefix}[id]", car_selection.try(:id) %>
       <% checked = car_selection.present? && !car_selection.marked_for_destruction? %>
