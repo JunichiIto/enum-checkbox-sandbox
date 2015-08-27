@@ -23,7 +23,6 @@
       <%= hidden_field_tag "#{name_prefix}[id]", car_selection.try(:id) %>
       <% checked = car_selection.present? && !car_selection.marked_for_destruction? %>
       <%= check_box_tag "#{name_prefix}[maker]", maker, checked %>
-      <%= hidden_field_tag "#{name_prefix}[#{index}][_destroy]", nil %>
       <%= maker %>
     </label>
   <% end %>
