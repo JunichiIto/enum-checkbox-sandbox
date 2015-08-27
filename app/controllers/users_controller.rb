@@ -69,6 +69,9 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name)
+      params[:user][:car_selections_attributes].each do |index, hash|
+        hash[:_destroy] = '1' if hash[:maker].blank?
+      end
+      params.require(:user).permit(:name, car_selections_attributes: %i(id maker _destroy))
     end
 end

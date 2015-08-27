@@ -15,6 +15,17 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+
+  <% CarSelection.makers.each_with_index do |(maker, value), index| %>
+    <label>
+      <% car_selection = @user.car_selections.find{|record| record.maker == maker } %>
+      <%= hidden_field_tag "user[car_selections_attributes][#{index}][id]", car_selection.try(:id) %>
+      <%= check_box_tag "user[car_selections_attributes][#{index}][maker]", maker, car_selection.present? && !car_selection.marked_for_destruction? %>
+      <%= hidden_field_tag "user[car_selections_attributes][#{index}][_destroy]", nil %>
+      <%= maker %>
+    </label>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
